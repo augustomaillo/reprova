@@ -13,8 +13,6 @@ import br.ufmg.engsoft.reprova.model.Course;
 
 
 public class CoarseGrainedCourseDAO extends CourseDAO {
-    /*TODO: TEST THIS CLASS*/
-
     /**
      * Basic constructor.
      *
