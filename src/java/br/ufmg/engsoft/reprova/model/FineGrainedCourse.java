@@ -3,9 +3,6 @@ package br.ufmg.engsoft.reprova.model;
 import java.util.List;
 
 public class FineGrainedCourse extends Course {
-    /**
-     * TODO: SONIA CUIDE DISSO!
-     */
     public final List<Student> students;
 
     public FineGrainedCourse(int year, Reference ref, String courseName, List<Student> students) {
