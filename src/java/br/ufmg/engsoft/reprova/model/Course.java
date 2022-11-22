@@ -46,20 +46,11 @@ public abstract class Course {
     }
   }
 
-
-  /**
-   * The year of the semester.
-   */
   public final int year;
-  /**
-   * The reference of the semester.
-   */
-  public final Reference ref;
-  /**
-   * TODO: SONIA CUIDE DISSO!
-   */
-  public final String courseName;
 
+  public final Reference ref;
+
+  public final String courseName;
 
   /**
    * Construct a Semester.
@@ -98,9 +89,7 @@ public abstract class Course {
     return Objects.hash(this.year, this.ref);
   }
 
-  /**
-   * Convert a Semester to String for visualization purposes.
-   */
+
   @Override
   public String toString() {
     return String.format(
