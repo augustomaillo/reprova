@@ -83,9 +83,8 @@ public class Questions {
   }
 
 
-  /**
-   * Check if the given token is authorized.
-   */
+
+  // Check if the given token is authorized.
   protected static boolean authorized(String token) {
     return Questions.token.equals(token);
   }
