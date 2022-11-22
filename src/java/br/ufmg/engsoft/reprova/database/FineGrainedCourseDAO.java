@@ -61,20 +61,4 @@ public class FineGrainedCourseDAO extends CourseDAO {
         							   students);
     }
 
-    @Override
-    public boolean delete(Course course) {
-    	if (course == null) {
-    		throw new IllegalArgumentException("course mustn't be null");
-    	}
-    	boolean result = this.collection.deleteOne(and(
-														eq("year", course.year),
-														eq("ref", course.ref.value),
-														eq("courseName", course.courseName)
-													)).wasAcknowledged();
-    	if (result)
-    		logger.info("Deleted course " + course.courseName +  ": " + course.year + "/" + course.ref.value);
-    	else
-    		logger.warn("Failed to delete course " + course.courseName +  ": " + course.year + "/" + course.ref.value);
-    	return result;
-    }
 }

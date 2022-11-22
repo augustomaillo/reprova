@@ -39,7 +39,23 @@ public abstract class CourseDAO {
 
         this.json_formatter = json_formatter;
     }
+    
+    public boolean delete(Course course) {
+    	if (course == null) {
+    		throw new IllegalArgumentException("course mustn't be null");
+    	}
+    	boolean result = this.collection.deleteOne(and(
+														eq("year", course.year),
+														eq("ref", course.ref.value),
+														eq("courseName", course.courseName)
+													)).wasAcknowledged();
+    	if (result)
+    		logger.info("Deleted course " + course.courseName +  ": " + course.year + "/" + course.ref.value);
+    	else
+    		logger.warn("Failed to delete course " + course.courseName +  ": " + course.year + "/" + course.ref.value);
+    	return result;
+    }
+
     public abstract void add(Course course);
     public abstract Course get(Course course);
-    public abstract boolean delete(Course course);
 }
