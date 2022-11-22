@@ -10,9 +10,7 @@ import com.google.gson.*;
  * Json format for Reprova's types.
  */
 public class Json {
-  /**
-   * Deserializer for Semester.
-   */
+
   public static class CourserDeserializer implements JsonDeserializer<Course> {
     /**
      * The semester format is:
@@ -36,9 +34,6 @@ public class Json {
     }
   }
 
-  /**
-   * Deserializer for Student.
-   */
   public static class StudentDeserializer implements JsonDeserializer<Student> {
     @Override
     public Student deserialize(
@@ -52,9 +47,6 @@ public class Json {
     }
   }
 
-  /**
-   * Deserializer for Question.Builder.
-   */
   public static class QuestionBuilderDeserializer
     implements JsonDeserializer<Question.Builder>
   {
@@ -92,14 +84,10 @@ public class Json {
     }
   }
 
-
-
   /**
    * The json formatter.
    */
   protected final Gson gson;
-
-
 
   /**
    * Instantiate the formatter for Reprova's types.
@@ -116,8 +104,6 @@ public class Json {
     this.gson = parserBuilder.create();
   }
 
-
-
   /**
    * Parse an object in the given class.
    * @throws JsonSyntaxException  if json is not a valid representation for the given class
@@ -126,10 +112,6 @@ public class Json {
     return this.gson.fromJson(json, cls);
   }
 
-
-  /**
-   * Render an object of the given class.
-   */
   public <T> String render(T obj) {
     return this.gson.toJson(obj);
   }
