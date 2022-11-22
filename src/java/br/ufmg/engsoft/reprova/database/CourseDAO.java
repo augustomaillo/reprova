@@ -11,42 +11,33 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public abstract class CourseDAO {
-    /**
-     * Logger instance.
-     */
     protected static final Logger logger = LoggerFactory.getLogger(QuestionsDAO.class);
 
-    /**
-     * Json formatter.
-     */
-    protected final Json json;
+    protected final Json json_formatter;
 
-    /**
-     * Questions collection.
-     */
-    protected final MongoCollection<Document> collection;
+    protected final MongoCollection<Document> questions_collection;
+
     /**
      * Basic constructor.
      * @param db    the database, mustn't be null
      * @param json  the json formatter for the database's documents, mustn't be null
      * @throws IllegalArgumentException  if any parameter is null
      */
-    public CourseDAO(Mongo db, Json json) {
+    public CourseDAO(Mongo db, Json json_formatter) {
         if (db == null)
             throw new IllegalArgumentException("db mustn't be null");
 
-        if (json == null)
+        if (json_formatter == null)
             throw new IllegalArgumentException("json mustn't be null");
 
-        this.collection = db.getCollection("questions");
-        //this.collection.createIndex(Indexes.text("some_field3"), new IndexOptions().unique(true));
-        this.collection.createIndex(Indexes.compoundIndex(
+        this.questions_collection = db.getCollection("questions");
+        this.questions_collection.createIndex(Indexes.compoundIndex(
         													Indexes.ascending("year"),
         													Indexes.ascending("ref"),
         													Indexes.text("courseName")
         							), new IndexOptions().unique(true));
 
-        this.json = json;
+        this.json_formatter = json_formatter;
     }
     public abstract void add(Course course);
     public abstract Course get(Course course);

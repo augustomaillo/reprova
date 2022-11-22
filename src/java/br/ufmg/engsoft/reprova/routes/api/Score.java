@@ -20,19 +20,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Score {
-    /**
-     * Logger instance.
-     */
     protected static final Logger logger = LoggerFactory.getLogger(Questions.class);
-    /**
-     * Messages.
-     */
     protected static final String invalid = "\"Invalid request\"";
     protected static final String ok = "\"Ok\"";
-    /**
-     * Json formatter.
-     */
-    protected final Json json;
+
+    protected final Json json_formatter;
 
     protected final CourseDAO courseDAO;
 
@@ -42,13 +34,13 @@ public class Score {
      * @param json  the json formatter
      * @throws IllegalArgumentException  if any parameter is null
      */
-    public Score(Json json, CourseDAO courseDAO) {
-        if (json == null)
+    public Score(Json json_formatter, CourseDAO courseDAO) {
+        if (json_formatter == null)
             throw new IllegalArgumentException("json mustn't be null");
         if (courseDAO == null)
             throw new IllegalArgumentException("courseDAO mustn't be null");
 
-        this.json = json;
+        this.json_formatter = json_formatter;
         this.courseDAO = courseDAO;
     }
 
@@ -95,9 +87,8 @@ public class Score {
         }
         return ok;
     }
-    /**
-     * Get endpoint: fetch the specified scored course from the database.
-     */
+
+    // Get endpoint: fetch the specified scored course from the database.
     protected Object get(Request request, Response response){
         Course course = getCourseFromRequest(request);
         course = courseDAO.get(course);

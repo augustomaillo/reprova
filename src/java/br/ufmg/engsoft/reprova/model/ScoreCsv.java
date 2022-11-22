@@ -68,6 +68,4 @@ public class ScoreCsv extends ScoreFile{
         Student student = new Student(id,score);
         return student;
     }
-
-
 }
