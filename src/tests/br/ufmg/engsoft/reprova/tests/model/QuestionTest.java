@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import br.ufmg.engsoft.reprova.model.Question;
+import br.ufmg.engsoft.reprova.model.QuestionBuilder;
 
 
 public class QuestionTest {
@@ -15,7 +16,7 @@ public class QuestionTest {
     assertThrows(
       IllegalArgumentException.class,
       () -> {
-        new Question.Builder()
+        new QuestionBuilder()
           .theme(null)
           .description("desc")
           .build();
@@ -31,7 +32,7 @@ public class QuestionTest {
     assertThrows(
       IllegalArgumentException.class,
       () -> {
-        new Question.Builder()
+        new QuestionBuilder()
           .theme("")
           .description("desc")
           .build();
@@ -47,7 +48,7 @@ public class QuestionTest {
     assertThrows(
       IllegalArgumentException.class,
       () -> {
-        new Question.Builder()
+        new QuestionBuilder()
           .theme("theme")
           .description(null)
           .build();
@@ -63,7 +64,7 @@ public class QuestionTest {
     assertThrows(
       IllegalArgumentException.class,
       () -> {
-        new Question.Builder()
+        new QuestionBuilder()
           .theme("theme")
           .description("")
           .build();

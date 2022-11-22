@@ -23,10 +23,8 @@ public class ScoreCsv extends ScoreFile{
                     isHeader = false;
                     continue;
                 }
-                if (Objects.isNull(course)) {
-                    course = courseFromLine(scoreLine);
-                }
-                Student student = studentFromLine(scoreLine);
+                course = getCourse(course, scoreLine);
+				Student student = studentFromLine(scoreLine);
                 students.add(student);
             }
             Course scoredCourse = CourseFactory.create().createCourse(course.year,course.ref,course.courseName,students);
@@ -35,6 +33,13 @@ public class ScoreCsv extends ScoreFile{
             throw new IOException("Error reading file");
         }
     }
+    
+	private Course getCourse(Course course, String scoreLine) {
+		if (Objects.isNull(course)) {
+			course = courseFromLine(scoreLine);
+		}
+		return course;
+	}
 
     public Course courseFromLine(String scoreLine) {
         String[] fields = parseLine(scoreLine);

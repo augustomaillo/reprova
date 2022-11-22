@@ -53,13 +53,13 @@ public class Json {
   }
 
   /**
-   * Deserializer for Question.Builder.
+   * Deserializer for QuestionBuilder.
    */
   public static class QuestionBuilderDeserializer
-    implements JsonDeserializer<Question.Builder>
+    implements JsonDeserializer<QuestionBuilder>
   {
     @Override
-    public Question.Builder deserialize(
+    public QuestionBuilder deserialize(
       JsonElement json,
       Type typeOfT,
       JsonDeserializationContext context
@@ -71,11 +71,11 @@ public class Json {
         new CourserDeserializer()
       );
 
-      Question.Builder questionBuilder = parserBuilder
+      QuestionBuilder questionBuilder = parserBuilder
         .create()
         .fromJson(
           json.getAsJsonObject(),
-          Question.Builder.class
+          QuestionBuilder.class
         );
 
       // Mongo's id property doesn't match Question.id:
@@ -109,7 +109,7 @@ public class Json {
     GsonBuilder parserBuilder = new GsonBuilder();
 
     parserBuilder.registerTypeAdapter(
-      Question.Builder.class,
+      QuestionBuilder.class,
       new QuestionBuilderDeserializer()
     );
 
