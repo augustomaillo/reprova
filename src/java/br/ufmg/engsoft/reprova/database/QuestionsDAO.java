@@ -21,26 +21,18 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.mime.json.Json;
 import br.ufmg.engsoft.reprova.model.Question;
+import br.ufmg.engsoft.reprova.model.QuestionBuilder;
 
 
 /**
  * DAO for Question class on mongodb.
  */
 public class QuestionsDAO {
-  /**
-   * Logger instance.
-   */
   protected static final Logger logger = LoggerFactory.getLogger(QuestionsDAO.class);
 
-  /**
-   * Json formatter.
-   */
-  protected final Json json;
+  protected final Json json_formatter;
 
-  /**
-   * Questions collection.
-   */
-  protected final MongoCollection<Document> collection;
+  protected final MongoCollection<Document> questions_collection;
 
 
 
@@ -57,9 +49,9 @@ public class QuestionsDAO {
     if (json == null)
       throw new IllegalArgumentException("json mustn't be null");
 
-    this.collection = db.getCollection("questions");
+    this.questions_collection = db.getCollection("questions");
 
-    this.json = json;
+    this.json_formatter = json_formatter;
   }
 
 
@@ -80,7 +72,7 @@ public class QuestionsDAO {
 
     try {
       Question question = json
-        .parse(doc, Question.Builder.class)
+        .parse(doc, QuestionBuilder.class)
         .build();
 
       logger.info("Parsed question: " + question);
@@ -132,10 +124,10 @@ public class QuestionsDAO {
         pvt == null ? null : eq("pvt", pvt)
       )
       .stream()
-      .filter(Objects::nonNull) // mongo won't allow null filters.
+      .filter(Objects::nonNull) 
       .collect(Collectors.toList());
 
-    FindIterable<Document> doc = filters.isEmpty() // mongo won't take null as a filter.
+    FindIterable<Document> doc = filters.isEmpty() 
       ? this.collection.find()
       : this.collection.find(and(filters));
 

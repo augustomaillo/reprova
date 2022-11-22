@@ -10,9 +10,7 @@ import com.google.gson.*;
  * Json format for Reprova's types.
  */
 public class Json {
-  /**
-   * Deserializer for Semester.
-   */
+
   public static class CourserDeserializer implements JsonDeserializer<Course> {
     /**
      * The semester format is:
@@ -36,9 +34,6 @@ public class Json {
     }
   }
 
-  /**
-   * Deserializer for Student.
-   */
   public static class StudentDeserializer implements JsonDeserializer<Student> {
     @Override
     public Student deserialize(
@@ -52,14 +47,11 @@ public class Json {
     }
   }
 
-  /**
-   * Deserializer for Question.Builder.
-   */
   public static class QuestionBuilderDeserializer
-    implements JsonDeserializer<Question.Builder>
+    implements JsonDeserializer<QuestionBuilder>
   {
     @Override
-    public Question.Builder deserialize(
+    public QuestionBuilder deserialize(
       JsonElement json,
       Type typeOfT,
       JsonDeserializationContext context
@@ -71,11 +63,11 @@ public class Json {
         new CourserDeserializer()
       );
 
-      Question.Builder questionBuilder = parserBuilder
+      QuestionBuilder questionBuilder = parserBuilder
         .create()
         .fromJson(
           json.getAsJsonObject(),
-          Question.Builder.class
+          QuestionBuilder.class
         );
 
       // Mongo's id property doesn't match Question.id:
@@ -92,14 +84,10 @@ public class Json {
     }
   }
 
-
-
   /**
    * The json formatter.
    */
   protected final Gson gson;
-
-
 
   /**
    * Instantiate the formatter for Reprova's types.
@@ -109,14 +97,12 @@ public class Json {
     GsonBuilder parserBuilder = new GsonBuilder();
 
     parserBuilder.registerTypeAdapter(
-      Question.Builder.class,
+      QuestionBuilder.class,
       new QuestionBuilderDeserializer()
     );
 
     this.gson = parserBuilder.create();
   }
-
-
 
   /**
    * Parse an object in the given class.
@@ -126,10 +112,6 @@ public class Json {
     return this.gson.fromJson(json, cls);
   }
 
-
-  /**
-   * Render an object of the given class.
-   */
   public <T> String render(T obj) {
     return this.gson.toJson(obj);
   }

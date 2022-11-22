@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.database.QuestionsDAO;
 import br.ufmg.engsoft.reprova.model.Question;
+import br.ufmg.engsoft.reprova.model.QuestionBuilder;
 import br.ufmg.engsoft.reprova.mime.json.Json;
 
 import java.util.Collection;
@@ -31,7 +32,7 @@ public class Questions {
   /**
    * Messages.
    */
-  protected static final String unauthorised = "\"Unauthorised\"";
+  protected static final String unauthorized = "\"Unauthorized\"";
   protected static final String invalid = "\"Invalid request\"";
   protected static final String ok = "\"Ok\"";
 
@@ -83,10 +84,9 @@ public class Questions {
   }
 
 
-  /**
-   * Check if the given token is authorised.
-   */
-  protected static boolean authorised(String token) {
+
+  // Check if the given token is authorized.
+  protected static boolean authorized(String token) {
     return Questions.token.equals(token);
   }
 
@@ -99,7 +99,7 @@ public class Questions {
     logger.info("Received questions get:");
 
     String id = request.queryParams("id");
-    boolean auth = authorised(request.queryParams("token"));
+    boolean auth = authorized(request.queryParams("token"));
 
     return id == null
       ? this.get(request, response, auth)
@@ -108,7 +108,7 @@ public class Questions {
 
   /**
    * Get id endpoint: fetch the specified question from the database.
-   * If not authorised, and the given question is private, returns an error message.
+   * If not authorized, and the given question is private, returns an error message.
    */
   protected Object get(Request request, Response response, String id, boolean auth) {
     if (id == null)
@@ -127,9 +127,9 @@ public class Questions {
     }
 
     if (question.isPrivate && !auth) {
-      logger.info("Unauthorised token: " + token);
+      logger.info("Unauthorized token: " + token);
       response.status(403);
-      return unauthorised;
+      return unauthorized;
     }
 
     logger.info("Done. Responding...");
@@ -141,7 +141,7 @@ public class Questions {
 
   /**
    * Get all endpoint: fetch all questions from the database.
-   * If not authorised, fetches only public questions.
+   * If not authorized, fetches only public questions.
    */
   protected Object get(Request request, Response response, boolean auth) {
     response.type("application/json");
@@ -177,16 +177,16 @@ public class Questions {
 
     String token = request.queryParams("token");
 
-    if (!authorised(token)) {
-      logger.info("Unauthorised token: " + token);
+    if (!authorized(token)) {
+      logger.info("Unauthorized token: " + token);
       response.status(403);
-      return unauthorised;
+      return unauthorized;
     }
 
     Question question;
     try {
       question = json
-        .parse(body, Question.Builder.class)
+        .parse(body, QuestionBuilder.class)
         .build();
     }
     catch (Exception e) {
@@ -225,10 +225,10 @@ public class Questions {
     String id = request.queryParams("id");
     String token = request.queryParams("token");
 
-    if (!authorised(token)) {
-      logger.info("Unauthorised token: " + token);
+    if (!authorized(token)) {
+      logger.info("Unauthorized token: " + token);
       response.status(403);
-      return unauthorised;
+      return unauthorized;
     }
 
     if (id == null) {
