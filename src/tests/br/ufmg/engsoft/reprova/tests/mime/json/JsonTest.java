@@ -41,7 +41,7 @@ public class JsonTest {
         Course c1 = factory.createCourse(2019, Course.Reference._1, "Software Reuse", 50.0f);
         Course c2 = factory.createCourse(2019, Course.Reference._1, "Design and Analysis of Algorithms", 49.5f);
         Course c3 = factory.createCourse(2020, Course.Reference._2, "Database", 51.2f);
-        Question question = new Question.Builder()
+        Question question = new QuestionBuilder()
                 .id("id")
                 .theme("theme")
                 .description("description")
@@ -55,7 +55,7 @@ public class JsonTest {
         String json = formatter.render(question);
 
         Question questionCopy = formatter
-                .parse(json, Question.Builder.class)
+                .parse(json, QuestionBuilder.class)
                 .build();
 
         assertEquals(question, questionCopy);
@@ -73,7 +73,7 @@ public class JsonTest {
         Course c1 = factory.createCourse(2019, Course.Reference._1, "Software Reuse", Arrays.asList(s1, s2));
         Course c2 = factory.createCourse(2019, Course.Reference._1, "Design and Analysis of Algorithms", Arrays.asList(s1, s2));
         Course c3 = factory.createCourse(2020, Course.Reference._2, "Database", Arrays.asList(s1));
-        Question question = new Question.Builder()
+        Question question = new QuestionBuilder()
                 .id("id")
                 .theme("theme")
                 .description("description")
@@ -87,7 +87,7 @@ public class JsonTest {
         String json = formatter.render(question);
 
         Question questionCopy = formatter
-                .parse(json, Question.Builder.class)
+                .parse(json, QuestionBuilder.class)
                 .build();
 
         assertEquals(question, questionCopy);

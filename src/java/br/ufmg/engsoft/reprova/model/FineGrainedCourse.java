@@ -12,10 +12,14 @@ public class FineGrainedCourse extends Course {
 
     @Override
     public float getScore() {
-        float totalScore = 0;
-        for (Student student : students) {
-            totalScore += student.score;
-        }
-        return totalScore / this.students.size();
+        float totalScore = calculateTotalScore(0);
+		return totalScore / this.students.size();
     }
+
+	private float calculateTotalScore(float totalScore) {
+		for (Student student : students) {
+			totalScore += student.score;
+		}
+		return totalScore;
+	}
 }

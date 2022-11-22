@@ -21,6 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.mime.json.Json;
 import br.ufmg.engsoft.reprova.model.Question;
+import br.ufmg.engsoft.reprova.model.QuestionBuilder;
 
 
 /**
@@ -71,7 +72,7 @@ public class QuestionsDAO {
 
     try {
       Question question = json
-        .parse(doc, Question.Builder.class)
+        .parse(doc, QuestionBuilder.class)
         .build();
 
       logger.info("Parsed question: " + question);

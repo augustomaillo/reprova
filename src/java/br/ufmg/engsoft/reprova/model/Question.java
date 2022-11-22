@@ -98,7 +98,6 @@ public class Question {
     }
 
     //Protected constructor, should only be used by the builder.
-    
     protected Question(String id, String theme, String description, String statement, List<Course> courses, boolean isPrivate) {
         this.id = id;
         this.theme = theme;

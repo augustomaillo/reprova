@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import br.ufmg.engsoft.reprova.database.QuestionsDAO;
 import br.ufmg.engsoft.reprova.model.Question;
+import br.ufmg.engsoft.reprova.model.QuestionBuilder;
 import br.ufmg.engsoft.reprova.mime.json.Json;
 
 import java.util.Collection;
@@ -185,7 +186,7 @@ public class Questions {
     Question question;
     try {
       question = json
-        .parse(body, Question.Builder.class)
+        .parse(body, QuestionBuilder.class)
         .build();
     }
     catch (Exception e) {
