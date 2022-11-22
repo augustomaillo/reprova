@@ -4,9 +4,6 @@ import java.io.InputStream;
 import java.util.Objects;
 import java.util.Properties;
 
-/**
- * TODO: SONIA CUIDE DISSO!
- */
 public class Configuration {
     public enum Granularity { COARSE_GRAINED, FINE_GRAINED }
     public enum ScoreFileType {CSV, JSON}
@@ -86,13 +83,13 @@ public class Configuration {
         scoreFileType = ScoreFileType.JSON;
     }
     public static boolean isCsv(){
-        if (Objects.isNull(granularity)) {
+        if (Objects.isNull(granularity)){
             readConfiguration();
         }
         return scoreFileType.equals(ScoreFileType.CSV);
     }
     public static boolean isJson(){
-        if (Objects.isNull(granularity)) {
+        if (Objects.isNull(granularity)){
             readConfiguration();
         }
         return scoreFileType.equals(ScoreFileType.JSON);
