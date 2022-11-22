@@ -5,9 +5,19 @@ Reprova
 
 ---
 
+Refactor:
+
+- Long Parameter List:
+    - Foi usado a ferramenta PMD para detectar o bad smell.
+    - Tomando como qualquer função com 5 argumentos ou mais como além do limite, foram encontradas 1 infração: model/Question.java na linha 113!
+    - A função em questão é um construtor e, apesar de estar causando o bad smell, os desenvolvedores originais lidaram com isso com o builder pattern, dessa forma, apesar de estar com muitos parâmetros em sua declaração, quando é chamado, o construtor recebe poucos argumentos e recebe o resto através do builder.
+
+---
+
 Um sistema gerenciador de questões e respostas para exames.
 
 Objetivos gerais
+
 ---
 
 - Dar suporte ao professor na criação de exames;
